@@ -24,6 +24,7 @@
     <modules>
         <module>eurekaserver</module>
         <module>mscooperativa</module>
+        <module>mscloudgateway</module>
     </modules>
 
     <dependencies>
