@@ -38,4 +38,5 @@ public class PautaServiceImpl implements PautaService {
                 .orElseThrow(
                         () -> new ResourceAlreadyExistException("Já existe uma pauta em aberto sendo votada."));
     }
+
 }
