@@ -1,8 +1,10 @@
 package br.com.project.mscooperativa.service.impl;
 
 import br.com.project.mscooperativa.dto.request.PautaRequest;
-import br.com.project.mscooperativa.dto.response.PautaResponse;
+import br.com.project.mscooperativa.dto.response.get.PautaGetResponse;
+import br.com.project.mscooperativa.dto.response.post.PautaPostResponse;
 import br.com.project.mscooperativa.exception.ResourceAlreadyExistException;
+import br.com.project.mscooperativa.exception.ResourceNotFoundException;
 import br.com.project.mscooperativa.model.Pauta;
 import br.com.project.mscooperativa.repository.PautaRepository;
 import br.com.project.mscooperativa.service.PautaService;
@@ -23,13 +25,24 @@ public class PautaServiceImpl implements PautaService {
 
     @Override
     @Transactional
-    public PautaResponse salvarPauta(PautaRequest pautaRequest) {
+    public PautaPostResponse salvarPauta(PautaRequest pautaRequest) {
         validaSeExistePautaAberta();
         Pauta pautaParaSalvar = new Pauta();
         pautaParaSalvar.setStatus(ABERTA);
         pautaParaSalvar.setTema(pautaRequest.getTema());
 
-        return PautaResponse.from(pautaRepository.save(pautaParaSalvar));
+        return PautaPostResponse.from(pautaRepository.save(pautaParaSalvar));
+    }
+
+    @Override
+    public PautaGetResponse obterPautasAbertas() {
+        Pauta pautaStatusEqualsAberta = pautaRepository
+                .findByStatusEqualsAberta()
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Nenhuma Pauta com status 'ABERTA' foi encontrada."));
+
+        return PautaGetResponse.from(pautaStatusEqualsAberta);
     }
 
     private void validaSeExistePautaAberta() {

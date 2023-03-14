@@ -10,6 +10,7 @@
         <module name="eurekaserver" />
         <module name="mscooperativa" />
         <module name="mscloudgateway" />
+        <module name="msvotacao" />
       </profile>
     </annotationProcessing>
   </component>
@@ -18,6 +19,7 @@
       <module name="eurekaserver" options="-parameters" />
       <module name="mscloudgateway" options="-parameters" />
       <module name="mscooperativa" options="-parameters" />
+      <module name="msvotacao" options="-parameters" />
     </option>
   </component>
 </project>

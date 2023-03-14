@@ -1,7 +1,8 @@
 package br.com.project.mscooperativa.controller;
 
 import br.com.project.mscooperativa.dto.request.PautaRequest;
-import br.com.project.mscooperativa.dto.response.PautaResponse;
+import br.com.project.mscooperativa.dto.response.get.PautaGetResponse;
+import br.com.project.mscooperativa.dto.response.post.PautaPostResponse;
 import br.com.project.mscooperativa.service.PautaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,8 +30,13 @@ public class PautaController {
     }
 
     @PostMapping
-    public ResponseEntity<PautaResponse> salvarPauta(@RequestBody @Valid PautaRequest request) {
+    public ResponseEntity<PautaPostResponse> salvarPauta(@RequestBody @Valid PautaRequest request) {
         return new ResponseEntity<>(pautaService.salvarPauta(request), CREATED);
+    }
+
+    @GetMapping("/pauta-aberta")
+    public ResponseEntity<PautaGetResponse> obterPautasAbertas() {
+        return new ResponseEntity<>(pautaService.obterPautasAbertas(), OK);
     }
 
 
