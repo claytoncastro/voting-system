@@ -1,7 +1,9 @@
 package br.com.project.msvotacao.exception.handler;
 
+import br.com.project.msvotacao.exception.ResourceAlreadyExistException;
 import br.com.project.msvotacao.exception.ResourceNotFoundException;
 import br.com.project.msvotacao.exception.ServiceUnavailableException;
+import br.com.project.msvotacao.exception.details.ResourceAlreadyExistDetails;
 import br.com.project.msvotacao.exception.details.ResourceNotFoundDetails;
 import br.com.project.msvotacao.exception.details.ServiceUnavailableDetails;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.Date;
 
+import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 
@@ -39,6 +42,18 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
                 .developerMessage(suException.getClass().getSimpleName())
                 .build();
         return new ResponseEntity<>(serviceUnavailable, SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler(ResourceAlreadyExistException.class)
+    public ResponseEntity<Object> handlerResourceNotFoundException(ResourceAlreadyExistException raeException) {
+        ResourceAlreadyExistDetails resourceNotFound = ResourceAlreadyExistDetails.builder()
+                .timestamp(new Date().getTime())
+                .status(CONFLICT.value())
+                .title("Recurso já existe")
+                .detail(raeException.getMessage())
+                .developerMessage(raeException.getClass().getSimpleName())
+                .build();
+        return new ResponseEntity<>(resourceNotFound, CONFLICT);
     }
 
 }
