@@ -26,8 +26,8 @@ public class VotacaoController {
     }
 
     @PostMapping
-    public ResponseEntity<VotacaoPostResponse> abrirVotacao(@RequestParam("tempoParavotacao") int tempoParavotacao) {
-        VotacaoPostResponse response = null;
+    public ResponseEntity<VotacaoPostResponse> abrirVotacao(@RequestParam("tempoParavotacao") long tempoParavotacao) {
+        VotacaoPostResponse response;
         try {
             response = votacaoService.abrirVotacao(tempoParavotacao);
         } catch (ErroComunicacaoMicroservicesException e) {
