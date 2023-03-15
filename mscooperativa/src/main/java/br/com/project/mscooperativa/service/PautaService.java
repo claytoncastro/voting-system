@@ -7,6 +7,7 @@ import br.com.project.mscooperativa.dto.response.post.PautaPostResponse;
 public interface PautaService {
 
     PautaPostResponse salvarPauta(PautaRequest pauta);
-    PautaGetResponse obterPautasAbertas();
+    PautaGetResponse obterPautaAbertaToRespone();
+    void encerrarPauta();
 
 }

@@ -18,7 +18,5 @@ F
 mscloudgateway/pom.xml,f\6\f6e7f35fe308c940a005feba805651dac1299d13
 –
 fmscooperativa/src/main/java/br/com/project/mscooperativa/exception/details/ValidationErrorDetails.java,0\9\094f9cc943627b799adca9fbf1eab26b0b7c7c74
-
-Omscooperativa/src/main/java/br/com/project/mscooperativa/model/StatusPauta.java,3\a\3aac8c770fb4546fe498097c2f585b0673639e1d
 †
 Vmscooperativa/src/main/java/br/com/project/mscooperativa/MscooperativaApplication.java,8\f\8f4b93a6f1ae1525e1d8eba09661fb4fe3ae2d1f

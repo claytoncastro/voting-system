@@ -6,5 +6,6 @@ import br.com.project.msvotacao.exception.ErroComunicacaoMicroservicesException;
 public interface PautaVotacaoService {
 
     PautaVotacao obterPautaVotacao() throws ErroComunicacaoMicroservicesException;
+    void encerrarPautaAberta() throws ErroComunicacaoMicroservicesException;
 
 }

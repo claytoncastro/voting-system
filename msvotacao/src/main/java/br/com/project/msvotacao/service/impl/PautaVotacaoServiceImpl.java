@@ -20,7 +20,7 @@ public class PautaVotacaoServiceImpl implements PautaVotacaoService {
     @Override
     public PautaVotacao obterPautaVotacao() throws ErroComunicacaoMicroservicesException {
         try {
-            PautaGetFeignClientResponse pautaGetClientResponse = pautaFeignClient.obterPautasAbertas();
+            PautaGetFeignClientResponse pautaGetClientResponse = pautaFeignClient.obterPautaAberta();
             return PautaVotacao.from(pautaGetClientResponse);
 
         } catch (FeignException.FeignClientException | FeignException.ServiceUnavailable e) {
@@ -29,5 +29,14 @@ public class PautaVotacaoServiceImpl implements PautaVotacaoService {
         }
     }
 
+    @Override
+    public void encerrarPautaAberta() throws ErroComunicacaoMicroservicesException {
+        try {
+            pautaFeignClient.encerrarPautaAberta();
+        } catch (FeignException.FeignClientException | FeignException.ServiceUnavailable e) {
+            feignExceptionService.parseException(e);
+            throw new ErroComunicacaoMicroservicesException(e.getMessage(), e.status());
+        }
+    }
 
 }

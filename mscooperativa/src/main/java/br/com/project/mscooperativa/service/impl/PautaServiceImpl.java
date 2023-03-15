@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static br.com.project.mscooperativa.model.StatusPauta.ABERTA;
+import static br.com.project.mscooperativa.model.StatusPauta.ENCERRADA;
 
 @Service
 @RequiredArgsConstructor
@@ -35,14 +36,23 @@ public class PautaServiceImpl implements PautaService {
     }
 
     @Override
-    public PautaGetResponse obterPautasAbertas() {
-        Pauta pautaStatusEqualsAberta = pautaRepository
+    public PautaGetResponse obterPautaAbertaToRespone() {
+        return PautaGetResponse.from(obterPautaAberta());
+    }
+
+    @Override
+    public void encerrarPauta() {
+        Pauta pauta = obterPautaAberta();
+        pauta.setStatus(ENCERRADA);
+        pautaRepository.save(pauta);
+    }
+    
+    private Pauta obterPautaAberta() {
+        return pautaRepository
                 .findByStatusEqualsAberta()
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhuma Pauta com status 'ABERTA' foi encontrada."));
-
-        return PautaGetResponse.from(pautaStatusEqualsAberta);
     }
 
     private void validaSeExistePautaAberta() {

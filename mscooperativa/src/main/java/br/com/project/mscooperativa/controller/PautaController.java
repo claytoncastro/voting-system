@@ -35,9 +35,14 @@ public class PautaController {
     }
 
     @GetMapping("/pauta-aberta")
-    public ResponseEntity<PautaGetResponse> obterPautasAbertas() {
-        return new ResponseEntity<>(pautaService.obterPautasAbertas(), OK);
+    public ResponseEntity<PautaGetResponse> obterPautaAberta() {
+        return new ResponseEntity<>(pautaService.obterPautaAbertaToRespone(), OK);
     }
 
+    @PostMapping("/encerrar-pauta")
+    public ResponseEntity<Void> encerrarPauta() {
+        pautaService.encerrarPauta();
+        return ResponseEntity.ok().build();
+    }
 
 }
