@@ -9,9 +9,9 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
+@EnableAsync
 @Configuration
 @EnableScheduling
-@EnableAsync
 public class SchedulingBeansConfig implements SchedulingConfigurer {
 
     @Override
