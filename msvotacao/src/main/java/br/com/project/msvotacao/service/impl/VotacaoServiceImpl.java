@@ -4,13 +4,15 @@ import br.com.project.msvotacao.dto.service.PautaVotacao;
 import br.com.project.msvotacao.dto.service.response.post.VotacaoPostResponse;
 import br.com.project.msvotacao.exception.ErroComunicacaoMicroservicesException;
 import br.com.project.msvotacao.exception.ResourceAlreadyExistException;
-import br.com.project.msvotacao.util.MessageSourceUtil;
 import br.com.project.msvotacao.model.Votacao;
 import br.com.project.msvotacao.repository.VotacaoRepository;
 import br.com.project.msvotacao.service.PautaVotacaoService;
-import br.com.project.msvotacao.service.TaskSchedulingService;
+import br.com.project.msvotacao.service.VotacaoCacheService;
+import br.com.project.msvotacao.service.VotacaoSchedulingService;
 import br.com.project.msvotacao.service.VotacaoService;
+import br.com.project.msvotacao.util.MessageSourceUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,24 +22,49 @@ import java.util.stream.Collectors;
 
 import static br.com.project.msvotacao.model.StatusVotacao.ABERTA;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class VotacaoServiceImpl implements VotacaoService {
 
     private final VotacaoRepository votacaoRepository;
+    private final VotacaoCacheService votacaoCacheService;
     private final PautaVotacaoService pautaVotacaoService;
-    private final TaskSchedulingService taskSchedulingService;
+    private final VotacaoSchedulingService votacaoSchedulingService;
     private final MessageSourceUtil messageSourceUtil;
 
     @Override
     @Transactional
     public VotacaoPostResponse abrirVotacao(long tempoParavotacao) throws ErroComunicacaoMicroservicesException {
-        validarSeExisteVotacaoStatusAberta();
-        PautaVotacao pautaVotacao = obterPautaVotacao();
+        validaSeExisteVotacaoComStatusAberta();
+        PautaVotacao pautaVotacao = this.obterPautaVotacao();
 
-        salvarVotacao(pautaVotacao);
-        taskSchedulingService.scheduleATask(tempoParavotacao);
-        return VotacaoPostResponse.from(pautaVotacao);
+        this.salvarVotacao(pautaVotacao);
+
+        Votacao votacao = votacaoCacheService.cacheVotacaoAberta();
+        votacaoSchedulingService.scheduleATask(tempoParavotacao);
+
+        return VotacaoPostResponse.from(votacao);
+    }
+
+    @Override
+    public void votar() {
+        Votacao votacao = votacaoCacheService.cacheVotacaoAberta();
+        if(ABERTA.equals(votacao.getStatusVotacao())) {
+            System.out.println("Você votou!");
+        } else {
+            System.out.println("Votação encerrada!");
+        }
+    }
+
+    private void validaSeExisteVotacaoComStatusAberta() {
+        Optional.of(votacaoRepository.findAll().stream()
+                        .filter(votacao -> ABERTA.equals(votacao.getStatusVotacao()))
+                        .collect(Collectors.toList()))
+                .filter(List::isEmpty)
+                .orElseThrow(
+                        () -> new ResourceAlreadyExistException(
+                                messageSourceUtil.message("api.error.existe.votacao.status.aberta")));
     }
 
     private PautaVotacao obterPautaVotacao() throws ErroComunicacaoMicroservicesException {
@@ -52,19 +79,6 @@ public class VotacaoServiceImpl implements VotacaoService {
                                 .statusVotacao(ABERTA)
                                 .build()
                 );
-    }
-
-    private void validarSeExisteVotacaoStatusAberta() {
-        Optional
-                .of(votacaoRepository
-                        .findAll()
-                        .stream()
-                        .filter(votacao -> ABERTA.equals(votacao.getStatusVotacao()))
-                        .collect(Collectors.toList()))
-                .filter(List::isEmpty)
-                .orElseThrow(
-                        () -> new ResourceAlreadyExistException(
-                                messageSourceUtil.message("api.error.existe.votacao.status.aberta")));
     }
 
 }

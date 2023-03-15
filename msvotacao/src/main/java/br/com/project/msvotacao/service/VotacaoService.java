@@ -6,5 +6,6 @@ import br.com.project.msvotacao.exception.ErroComunicacaoMicroservicesException;
 public interface VotacaoService {
 
     VotacaoPostResponse abrirVotacao(long tempoParavotacao) throws ErroComunicacaoMicroservicesException;
+    void votar();
 
 }

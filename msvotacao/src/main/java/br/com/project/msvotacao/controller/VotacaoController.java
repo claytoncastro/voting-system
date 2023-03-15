@@ -37,4 +37,10 @@ public class VotacaoController {
         return new ResponseEntity<>(response, OK);
     }
 
+    @PostMapping("/votar")
+    public ResponseEntity<Void> votar() {
+        votacaoService.votar();
+        return ResponseEntity.ok().build();
+    }
+
 }

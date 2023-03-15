@@ -1,6 +1,6 @@
 package br.com.project.msvotacao.dto.service.response.post;
 
-import br.com.project.msvotacao.dto.service.PautaVotacao;
+import br.com.project.msvotacao.model.Votacao;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,7 +11,7 @@ public class VotacaoPostResponse {
     private Long idPauta;
     private String temaPautaVotacao;
 
-    public static VotacaoPostResponse from(PautaVotacao data) {
+    public static VotacaoPostResponse from(Votacao data) {
         return VotacaoPostResponse.builder()
                 .idPauta(data.getId())
                 .temaPautaVotacao(data.getTema())
