@@ -2,7 +2,7 @@ spring:
   application:
     name: mscooperativa
   datasource:
-    url: jdbc:mysql://localhost:3306/voting-system?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/db-mscooperativa?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     username: root
     password:
   jpa:

@@ -22,5 +22,3 @@ fmscooperativa/src/main/java/br/com/project/mscooperativa/exception/details/Vali
 Omscooperativa/src/main/java/br/com/project/mscooperativa/model/StatusPauta.java,3\a\3aac8c770fb4546fe498097c2f585b0673639e1d
 †
 Vmscooperativa/src/main/java/br/com/project/mscooperativa/MscooperativaApplication.java,8\f\8f4b93a6f1ae1525e1d8eba09661fb4fe3ae2d1f
-E
-mscooperativa/pom.xml,5\3\539385108fb8e350a75e61d098641a3b566e00e3
