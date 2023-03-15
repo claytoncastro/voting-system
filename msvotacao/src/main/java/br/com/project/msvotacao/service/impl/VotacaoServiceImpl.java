@@ -4,6 +4,7 @@ import br.com.project.msvotacao.dto.service.PautaVotacao;
 import br.com.project.msvotacao.dto.service.response.post.VotacaoPostResponse;
 import br.com.project.msvotacao.exception.ErroComunicacaoMicroservicesException;
 import br.com.project.msvotacao.exception.ResourceAlreadyExistException;
+import br.com.project.msvotacao.util.MessageSourceUtil;
 import br.com.project.msvotacao.model.Votacao;
 import br.com.project.msvotacao.repository.VotacaoRepository;
 import br.com.project.msvotacao.service.PautaVotacaoService;
@@ -26,6 +27,7 @@ public class VotacaoServiceImpl implements VotacaoService {
     private final VotacaoRepository votacaoRepository;
     private final PautaVotacaoService pautaVotacaoService;
     private final TaskSchedulingService taskSchedulingService;
+    private final MessageSourceUtil messageSourceUtil;
 
     @Override
     @Transactional
@@ -61,7 +63,8 @@ public class VotacaoServiceImpl implements VotacaoService {
                         .collect(Collectors.toList()))
                 .filter(List::isEmpty)
                 .orElseThrow(
-                        () -> new ResourceAlreadyExistException("Já existe uma votação com status 'ABERTA'."));
+                        () -> new ResourceAlreadyExistException(
+                                messageSourceUtil.message("api.error.existe.votacao.status.aberta")));
     }
 
 }

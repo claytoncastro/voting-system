@@ -26,7 +26,8 @@ public class VotacaoController {
     }
 
     @PostMapping
-    public ResponseEntity<VotacaoPostResponse> abrirVotacao(@RequestParam("tempoParavotacao") long tempoParavotacao) {
+    public ResponseEntity<VotacaoPostResponse> abrirVotacao(
+            @RequestParam(name = "tempoParavotacao", defaultValue = "1") long tempoParavotacao) {
         VotacaoPostResponse response;
         try {
             response = votacaoService.abrirVotacao(tempoParavotacao);
