@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
+        <module name="mscontabilizador" />
         <module name="mscooperativa" />
         <module name="mscloudgateway" />
         <module name="msvotacao" />
@@ -18,6 +19,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eurekaserver" options="-parameters" />
       <module name="mscloudgateway" options="-parameters" />
+      <module name="mscontabilizador" options="-parameters" />
       <module name="mscooperativa" options="-parameters" />
       <module name="msvotacao" options="-parameters" />
     </option>
