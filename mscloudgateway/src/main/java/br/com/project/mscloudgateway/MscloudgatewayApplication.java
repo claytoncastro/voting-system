@@ -23,6 +23,7 @@ public class MscloudgatewayApplication {
 				.routes()
 					.route(r -> r.path("/pautas/**").uri("lb://mscooperativa"))
 					.route(r -> r.path("/votacao/**").uri("lb://msvotacao"))
+					.route(r -> r.path("/api-contabilizador/**").uri("lb://mscontabilizador"))
 				.build();
 	}
 

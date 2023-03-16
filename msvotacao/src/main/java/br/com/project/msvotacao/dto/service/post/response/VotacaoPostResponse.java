@@ -1,4 +1,4 @@
-package br.com.project.msvotacao.dto.service.response.post;
+package br.com.project.msvotacao.dto.service.post.response;
 
 import br.com.project.msvotacao.model.Votacao;
 import lombok.Builder;
