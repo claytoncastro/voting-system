@@ -82,4 +82,6 @@ Segue sequência de subida dos serviços:
 
 Segue anexo a nesse projeto uma _JSON Collection_ para ser importada no Postman para facilitar as requisições.
 
-Pode ser encontrada na pasta _collections_ localizada na raiz desse sistema.
+Pode ser baixada na pasta _collections_ clicando no link abaixo:
+
+* **[Postman Collection](https://github.com/claytoncastro/voting-system/blob/master/collections/voting-system.postman_collection.json "Postman Collection")**
