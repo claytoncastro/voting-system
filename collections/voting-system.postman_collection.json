@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "1abec8c4-207d-4cac-a324-ca09672dabdd",
+		"name": "voting-system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6704838"
+	},
+	"item": [
+		{
+			"name": "Pauta",
+			"item": [
+				{
+					"name": "Salvar Pauta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tema\": \"Teste de pauta para votação\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pautas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pautas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Encerrar Pauta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pautas/encerrar-pauta",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pautas",
+								"encerrar-pauta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter Pauta Aberta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pautas/pauta-aberta",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pautas",
+								"pauta-aberta"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Votação",
+			"item": [
+				{
+					"name": "Abrir Votação",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/votacao?tempoParavotacao=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"votacao"
+							],
+							"query": [
+								{
+									"key": "tempoParavotacao",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Votar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpfVotante\":\"12365498744\",\r\n    \"resposta\":\"SIM\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/votacao/votar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"votacao",
+								"votar"
+							],
+							"query": [
+								{
+									"key": "tempoParavotacao",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
